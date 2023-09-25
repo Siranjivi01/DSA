@@ -1,76 +1,75 @@
-class QueuePro{
+class Main{
     private int Front,Rear;
-    private int size=10;
-    private int arr[]=new int[size];
-    QueuePro(){
+    private int Size=10;
+    private int data[]=new int[Size];
+    Main(){
         Front=-1;
         Rear=-1;
     }
-    //Check the Queue is Full
-    public boolean CheckFull(){
-        if(Front==0 && Rear==size-1){
-            return true;
-        }
+public boolean CheckFull(){
+    if(Front==0 && Rear==Size-1){
+        return true;
+    }
+    if(Front == Rear + 1 ){
+        return true;
+    }
+    else{
         return false;
     }
-    //Check the Queue is Empty
-    public boolean CheckEmpty(){
-        if(Front==-1){
-            return true;
-        }
+}
+public boolean CheckEmpty(){
+    if(Front==-1){
+    return true;
+    }
+    else{
         return false;
     }
-    //Add the Values to the Queue
-    public void Enqueue(int items){
-        if(CheckFull()){
-            System.out.println("Alread Stack Fulled");
-        }
-        else{
+}
+public void Enqueue(int x){
+    if(CheckFull()){
+        System.out.println("Queue Full");
+        System.exit(1);
+    }
+    else{
             Front=0;
-            arr[++Rear]=items;
-            System.out.println("Inserted Element In Queue:"+arr[Rear]);
-        }
+            Rear=(Rear+1 % Size);
+            data[Rear]=x;
+            System.out.println("Value Enqueued in Queue:" +x);
+        } 
     }
-    //Remove the Value in Queue
-    public int Dequeue(){
-        int n;
-        if(CheckEmpty()){
-            System.out.println("Queue already Empty");
-            return -1;
-        }
-        else{
-            n=arr[Front];
-            if(Front>=Rear){
-                Front=-1;
-                Rear=-1;
-            }
-            else{
-                Front++;
-            }
-            System.out.println("Dequeued Value in Queue:"+n);
-            return (n);
-        }
-    }
-    //Print the Queue
-    public void display(){
-        if(CheckEmpty()){
-            System.out.println("Stack Empty");
-        }
-        else{
 
-            System.out.println("Values in Queue");
-            for(int i=Front;i<=Rear;i++){
-                System.out.println(arr[i]);
-            }
+public int Dequeue(){
+    int dequeueX;
+    if(CheckEmpty())
+    {
+        System.out.println("Queue is Empty");
+        return -1;
+    }
+    else{
+        dequeueX=data[Front];
+        if(Front == Rear){
+            Front=-1;
+            Rear=-1;
         }
+        else{
+            Front=(Front+1 % Size);
+        }
+        System.out.println("Dequeue Value in Queue:"+dequeueX);
+        return dequeueX;
     }
-    public static void main(String[] args){
-        QueuePro s=new QueuePro();
-        s.Enqueue(10);
-        s.Enqueue(20);
-        s.Enqueue(30);
-        s.Dequeue();
-        s.Dequeue();
-        s.display();
+}
+public void DisplayQueue(){
+    for(int i=Front;i<=Rear;i=(i+1 % Size)){
+        System.out.println("Queue Values: "+data[i]);
     }
+}
+
+public static void main(String[] args){
+Main s=new Main();
+s.Enqueue(20);
+s.Enqueue(30);
+s.Enqueue(50);
+s.Dequeue();
+s.DisplayQueue();
+}
 }
